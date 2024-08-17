@@ -10,7 +10,7 @@ export const signIn = async ({ email, password }: signInProps) => {
     const { account } = await createAdminClient();
 
     const response = await account.createEmailPasswordSession(email, password);
-
+  
     return parseStringify(response);
   } catch (error) {
     console.log("Error: ", error);
@@ -47,18 +47,20 @@ export async function getLoggedInUser() {
     6;
     const { account } = await createSessionClient();
     const user = await account.get();
-    return parseStringify(user);
+    return JSON.parse(JSON.stringify(user)); // Ensure plain object
+
+    // return parseStringify(user);
   } catch (error) {
     return error;
   }
 }
 
-// export const logoutAccount = async () => {
-//   try {
-//     const { account } = await createSessionClient();
-//     cookies().delete("appwrite-session");
-//     await account.deleteSession("current");
-//   } catch (error) {
-//     return null;
-//   }
-// };
+export const logoutAccount = async () => {
+  try {
+    const { account } = await createSessionClient();
+    cookies().delete("appwrite-session");
+    await account.deleteSession("current");
+  } catch (error) {
+    return null;
+  }
+};
