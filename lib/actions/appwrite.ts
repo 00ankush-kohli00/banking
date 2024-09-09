@@ -7,7 +7,10 @@ export async function createSessionClient() {
     .setEndpoint(process.env.NEXT_PUBLIC_APPWRITE_ENDPOINT!)
     .setProject(process.env.NEXT_PUBLIC_APPWRITE_PROJECT!);
 
-  const session = cookies().get("appwrite-session");
+    const cookieStore = cookies();
+    const session = cookieStore.get("appwrite-session");
+    const allCookies = cookieStore.getAll();
+    console.log("ALL cookies", allCookies)
   if (!session || !session.value) {
     throw new Error("No session");
   }

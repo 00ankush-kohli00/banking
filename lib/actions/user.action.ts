@@ -9,6 +9,7 @@ export const signIn = async ({ email, password }: signInProps) => {
   try {
     const { account } = await createAdminClient();
     const response = account.createEmailPasswordSession(email, password);
+    console.log("Sign-in rsps",response)
     return parseStringify(response);
   } catch (error) {
     console.error(error);
@@ -46,20 +47,23 @@ export async function getLoggedInUser() {
   try {
     const { account } = await createSessionClient();
     const user = await account.get();
+    console.log("Get logged in client",user)
     return parseStringify(user);
   } catch (error) {
+    console.error(error)
     return null;
   }
 }
 
 export const logout = async () => {
   try {
-    const { account } = await createAdminClient();
+    const { account } = await createSessionClient();
 
     cookies().delete("appwrite-session");
 
-    await account.deleteSession("current");
+    await account.deleteSession('current');
   } catch (error) {
+    console.error(error)
     return null
   }
 };

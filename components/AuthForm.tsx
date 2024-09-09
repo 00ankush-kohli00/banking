@@ -45,6 +45,7 @@ const AuthForm = ({ type }: AuthFormProps) => {
           email: data.email,
           password: data.password,
         });  
+        console.log("AUTH RESPONSE",response);
         if (response) router.push("/");
       }
     } catch (error) {
