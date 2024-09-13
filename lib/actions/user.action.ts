@@ -60,10 +60,10 @@ export const signUp = async ({password,...userData}: SignUpParams) => {
       ...userData,
       type:'personal',
     })
+    console.log("Dwolla customer url ",dwollaCustomerUrl)
 
     if(!dwollaCustomerUrl) throw new Error("Error creating Dwolla customer")
 
-    
     const dwollaCustomerId = extractCustomerIdFromUrl(dwollaCustomerUrl)
 
     const newUser = await database.createDocument(

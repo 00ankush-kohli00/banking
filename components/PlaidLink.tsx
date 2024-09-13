@@ -36,7 +36,8 @@ const PlaidLink = ({ user, variant }: PlaidLinkProps) => {
     onSuccess,
   };
 
-  const { open, ready } = usePlaidLink(config);
+  const { open, ready,error } = usePlaidLink(config);
+  console.error("Plaid Link ",error)
   return (
     <>
       {variant === "primary" ? (
